@@ -6,8 +6,6 @@ load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
 
-cities = ["Chennai", "Bangalore", "Hyderabad", "Mumbai", "Delhi"]
-
 def fetch_weather_data(cities):
     weather_data = []
 

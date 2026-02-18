@@ -5,15 +5,15 @@ def tranform_weather_data(weather_data):
     records = []
 
     for data in weather_data:
-        recorded_at = pd.to_datetime(data['dt'], utc=True, yearfirst=True, unit='s').tz_convert('Asia/Kolkata')
         records.append({
             'city':data['name'],
-            'description':data['weather'][0]['main'],
-            'temperature':round((data['main']['temp']) - 273.15, 2),
-            'humidity':data['main']['humidity'],
-            'recorded_at':datetime.strftime(recorded_at, format = "%Y-%m-%d %H:%M")
+            'weather_description':data['weather'][0]['main'],
+            'temp_c':round((data['main']['temp']) - 273.15, 2),
+            'temp_feels_like_c':round((data['main']['feels_like']) - 273.15, 2),
+            'humidity_percentage':data['main']['humidity'],
+            'pressure_hpa':data['main']['pressure'],
+            'wind_speed':round(data['wind']['speed'], 2),
+            'recorded_at':pd.to_datetime(data['dt'], utc=True, unit='s')
         })
 
-    df = pd.DataFrame(records)
-
-    return df
+    return pd.DataFrame(records)

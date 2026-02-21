@@ -12,3 +12,5 @@ DB_CONFIG = {
     'user':os.getenv("USER"),
     'password':os.getenv("PASSWORD")
 }
+
+cities = ["Chennai", "Bangalore", "Hyderabad", "Mumbai", "Delhi"]

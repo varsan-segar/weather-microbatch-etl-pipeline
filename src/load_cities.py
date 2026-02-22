@@ -20,7 +20,7 @@ def load_cities_data(cities_data):
     try:
         with psycopg.connect(host = host, dbname = dbname, port=port, user=user, password=password) as conn:
             with conn.cursor() as cur:
-                insert_query = "INSERT INTO city(city_name, latitude, longitude) VALUES(%s, %s, %s) ON CONFLICT DO NOTHING;"
+                insert_query = "INSERT INTO city(city_name, latitude, longitude) VALUES(%s, %s, %s) ON CONFLICT (city_name) DO NOTHING;"
 
                 cur.executemany(insert_query, records)
     except Exception as e:

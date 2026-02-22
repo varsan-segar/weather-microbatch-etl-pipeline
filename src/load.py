@@ -17,9 +17,20 @@ def load_weather_data(cleaned_data):
                 cur.execute(select_query)
                 
                 rows = cur.fetchall()
-                city_id = {city_id: city_name for city_id, city_name in rows}
+                city_id = {city_name: city_id for city_name, city_id in rows}
                 
-                cleaned_data['city'] = cleaned_data['city'].map(city_id)
+                cleaned_data['city_id'] = cleaned_data['city'].map(city_id)
+                cleaned_data = cleaned_data.drop(columns = ['city'])
+                cleaned_data = cleaned_data[[
+                    'city_id',
+                    'weather_description',
+                    'temp_c',
+                    'temp_feels_like_c',
+                    'humidity_percentage',
+                    'pressure_hpa',
+                    'wind_speed',
+                    'recorded_at'
+                ]]
                 cleaned_data = list(cleaned_data.itertuples(index = False, name = None))
 
                 insert_query = """

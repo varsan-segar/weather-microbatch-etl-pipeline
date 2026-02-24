@@ -1,5 +1,16 @@
 import psycopg
+import logging
 from config import DB_CONFIG
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+format = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
+
+file_handler = logging.FileHandler("./logs/etl.log")
+file_handler.setFormatter(format)
+
+logger.addHandler(file_handler)
 
 host = DB_CONFIG['host']
 dbname = DB_CONFIG['dbname']
@@ -8,6 +19,8 @@ user = DB_CONFIG['user']
 password = DB_CONFIG['password']
 
 def load_cities_data(cities_data):
+    logger.info("City data loading started")
+
     records = []
 
     for data in cities_data:
@@ -24,7 +37,9 @@ def load_cities_data(cities_data):
 
                 cur.executemany(insert_query, records)
     except Exception as e:
-        print(e)
+        logger.exception(e)
     finally:
         if conn:
             conn.close()
+    
+    logger.info("City data loading finished successfully")

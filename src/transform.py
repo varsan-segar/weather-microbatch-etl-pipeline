@@ -1,6 +1,19 @@
 import pandas as pd
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+format = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
+
+file_handler = logging.FileHandler("./logs/etl.log")
+file_handler.setFormatter(format)
+
+logger.addHandler(file_handler)
 
 def tranform_weather_data(weather_data):
+    logger.info("Weather data transformation started")
+
     records = []
 
     for data in weather_data:
@@ -14,5 +27,7 @@ def tranform_weather_data(weather_data):
             'wind_speed':round(data['wind']['speed'], 2),
             'recorded_at':pd.to_datetime(data['dt'], utc=True, unit='s')
         })
+
+    logger.info("Weather data transformation finished successfully")
 
     return pd.DataFrame(records)

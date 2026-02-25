@@ -1,5 +1,6 @@
 import psycopg
 import logging
+from tenacity import retry, stop_after_attempt, wait_exponential
 from config import DB_CONFIG
 
 logger = logging.getLogger(__name__)
@@ -18,6 +19,7 @@ port = DB_CONFIG['port']
 user = DB_CONFIG['user']
 password = DB_CONFIG['password']
 
+@retry(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=1, max=10))
 def load_cities_data(cities_data):
     logger.info("City data loading started")
 
@@ -38,6 +40,7 @@ def load_cities_data(cities_data):
                 cur.executemany(insert_query, records)
     except Exception as e:
         logger.exception(e)
+        raise e
     finally:
         if conn:
             conn.close()

@@ -19,7 +19,7 @@ port = DB_CONFIG['port']
 user = DB_CONFIG['user']
 password = DB_CONFIG['password']
 
-@retry(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=1, max=10))
+@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=10))
 def load_cities_data(cities_data):
     logger.info("City data loading started")
 

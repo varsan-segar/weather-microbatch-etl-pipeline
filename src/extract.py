@@ -6,13 +6,6 @@ from config import API_KEY
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-format = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
-
-file_handler = logging.FileHandler("./logs/etl.log")
-file_handler.setFormatter(format)
-
-logger.addHandler(file_handler)
-
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=2, min=2, max=30))
 def fetch_city_weather_data(city):
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}"

@@ -2,14 +2,6 @@ import pandas as pd
 import logging
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-format = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
-
-file_handler = logging.FileHandler("./logs/etl.log")
-file_handler.setFormatter(format)
-
-logger.addHandler(file_handler)
 
 def transform_weather_data(weather_data):
     logger.info("Weather data transformation started")

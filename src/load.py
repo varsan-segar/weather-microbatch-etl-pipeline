@@ -4,14 +4,6 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from config import DB_CONFIG
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-format = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
-
-file_handler = logging.FileHandler("./logs/etl.log")
-file_handler.setFormatter(format)
-
-logger.addHandler(file_handler)
 
 host = DB_CONFIG['host']
 dbname = DB_CONFIG['dbname']

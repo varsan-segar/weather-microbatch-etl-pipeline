@@ -3,16 +3,11 @@ from extract import fetch_weather_data
 from transform import transform_weather_data
 from load import load_weather_data
 from config import cities
+from logger_config import setup_logger
+
+setup_logger()
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-format = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
-
-file_handler = logging.FileHandler("./logs/etl.log")
-file_handler.setFormatter(format)
-
-logger.addHandler(file_handler)
 
 logger.info("ETL pipeline started")
 

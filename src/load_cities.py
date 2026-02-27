@@ -30,8 +30,6 @@ def load_cities_data(cities_data):
             data['name'], data['coord']['lat'], data['coord']['lon']
         ))
 
-    conn = None
-
     try:
         with psycopg.connect(host = host, dbname = dbname, port=port, user=user, password=password) as conn:
             with conn.cursor() as cur:
@@ -41,8 +39,5 @@ def load_cities_data(cities_data):
     except Exception as e:
         logger.exception(e)
         raise e
-    finally:
-        if conn:
-            conn.close()
     
     logger.info("City data loading finished successfully")

@@ -23,8 +23,6 @@ password = DB_CONFIG['password']
 def load_weather_data(cleaned_data):
     logger.info("Weather data loading started")
 
-    conn = None
-
     try:
         with psycopg.connect(host=host, dbname=dbname, port=port, user=user, password=password) as conn:
             with conn.cursor() as cur:
@@ -56,8 +54,5 @@ def load_weather_data(cleaned_data):
     except Exception as e:
         logger.exception(e)
         raise e
-    finally:
-        if conn:
-            conn.close()
     
     logger.info("Weather data loading finished successfully")

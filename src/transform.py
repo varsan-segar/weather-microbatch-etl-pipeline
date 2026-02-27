@@ -11,7 +11,7 @@ file_handler.setFormatter(format)
 
 logger.addHandler(file_handler)
 
-def tranform_weather_data(weather_data):
+def transform_weather_data(weather_data):
     logger.info("Weather data transformation started")
 
     records = []

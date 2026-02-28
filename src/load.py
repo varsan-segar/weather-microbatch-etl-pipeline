@@ -43,6 +43,8 @@ def load_weather_data(cleaned_data):
                 VALUES(%s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (city_id, recorded_at) DO NOTHING;
                 """
                 cur.executemany(insert_query, cleaned_data)
+
+                logger.info(f"Inserted {len(cleaned_data)} rows into database")
     except Exception as e:
         logger.exception(e)
         raise e

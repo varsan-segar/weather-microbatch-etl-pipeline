@@ -9,6 +9,7 @@ def setup_logger():
     file_handler = logging.FileHandler("./logs/etl.log")
     file_handler.setFormatter(format)
 
-    logger.addHandler(file_handler)
+    if not logger.handlers:
+        logger.addHandler(file_handler)
 
     return logger

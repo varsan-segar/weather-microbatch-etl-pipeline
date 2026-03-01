@@ -1,15 +1,9 @@
 import psycopg
 import logging
 from tenacity import retry, stop_after_attempt, wait_exponential
-from config import DB_CONFIG
+from config import host, dbname, port, user, password
 
 logger = logging.getLogger(__name__)
-
-host = DB_CONFIG['host']
-dbname = DB_CONFIG['dbname']
-port = DB_CONFIG['port']
-user = DB_CONFIG['user']
-password = DB_CONFIG['password']
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=10))
 def load_weather_data(cleaned_data):
